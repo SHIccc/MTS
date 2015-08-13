@@ -1,18 +1,18 @@
 # ------------------------------------------------------------------------------
-# Project: MTS - Modeling of Term Structure for Inflation Estimation
+# Project:     MTS - Modeling of Term Structure for Inflation Estimation
 # ------------------------------------------------------------------------------
-# Quantlet: MTS_BEIR
+# Quantlet:    MTS_BEIR
 # ------------------------------------------------------------------------------
-# Description: Plots the breakeven inflation rate (BEIR) across five
-# different industrialized European countries - U.K., Germany, France,
-# Italy and Sweden.
+# Description: Plots the breakeven inflation rate (BEIR) across five different
+#              industrialized European countries - U.K., Germany, France,
+#              Italy and Sweden.
 # ------------------------------------------------------------------------------
-# Keywords: plot, time-series, graphical representation, visualization,
-# bond,
+# Keywords:    plot, time-series, graphical representation, visualization,
+#              bond,
 # ------------------------------------------------------------------------------
 # See also:
 # ------------------------------------------------------------------------------
-# Author: Shi Chen
+# Author:      Shi Chen
 # ------------------------------------------------------------------------------
 
 # clear history
@@ -26,7 +26,7 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
-setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code//MTS_Qcodes")
+setwd("")
 
 ## read data of U.K.
 ukdata1 = read.csv("ukspot_nom.csv", header = F, sep = ";")  #U.K. nominal bonds
@@ -60,7 +60,6 @@ st = which(dedate == "30.06.2009")
 et = which(dedate == "31.12.2014")
 dedata11 = dedata1[(st:et), 2:14]
 
-
 dedata2 = read.csv("deinf.csv", header = F, sep = ";")
 dedate = as.character(dedata2[, 2])
 st = which(dedate == "30.06.2009")
@@ -75,7 +74,6 @@ dejoi = cbind(denom[, 1], deinf[, 1])
 for (i in 2:length(demat)) {
   dejoi = cbind(dejoi, denom[, i], deinf[, i])
 }
-
 
 debei = denom - deinf
 ts.debeipre = ts(debei[, 1], frequency = 12, start = c(2009, 6))
@@ -119,7 +117,6 @@ st = which(itdate == "29.06.2007")
 et = which(itdate == "31.12.2014")
 itdata22 = itdata2[(st:et), 2:8]
 
-
 itnom = cbind(itdata11[, 2], itdata11[, 4], itdata11[, 9])
 itinf = cbind(itdata22[, 3], itdata22[, 4], itdata22[, 6])
 itmat = c(3, 5, 10)
@@ -128,7 +125,6 @@ itjoi = cbind(itnom[, 1], itinf[, 1])
 for (i in 2:length(itmat)) {
   itjoi = cbind(itjoi, itnom[, i], itinf[, i])
 }
-
 
 itbei = itnom - itinf
 ts.itbeipre = ts(itbei[, 1], frequency = 12, start = c(2007, 6))
@@ -140,7 +136,6 @@ st = which(swdate == "30.04.2007")
 et = which(swdate == "29.08.2014")
 swdata11 = swdata1[(st:et), 2:8]
 
-
 swdata2 = read.csv("swinf3.csv", header = F, sep = ";")
 swdate = as.character(swdata2[, 1])
 st = which(swdate == "30.04.2007")
@@ -151,7 +146,6 @@ swnom = cbind(swdata11[, 1], swdata11[, 4], swdata11[, 5])
 swinf = cbind(swdata22[, 1], swdata22[, 2], swdata22[, 3])
 swmat = c(2, 5, 7)
 
-
 swjoi = cbind(swnom[, 1], swinf[, 1])
 for (i in 2:length(swmat)) {
   swjoi = cbind(swjoi, swnom[, i], swinf[, i])
@@ -161,7 +155,6 @@ ts.swbeipre = ts(swbei[, 1], frequency = 12, start = c(2007, 4))
 
 #### BEIR plot
 par(mfrow = c(1, 1), pty = "m")
-
 plot(ts.ukbeipre, lty = 3, lwd = 3, col = "red", ylim = c(-3, 4), ylab = "BEIR")
 lines(ts.debeipre, lty = 2, col = "blue", lwd = 3)
 lines(ts.frbeipre, lty = 1, col = "black", lwd = 3)
