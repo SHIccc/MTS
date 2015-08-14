@@ -1,18 +1,18 @@
 # ------------------------------------------------------------------------------
-# Project:     MTS - Modeling of Term Structure for Inflation Estimation
+# Project: MTS - Modeling of Term Structure for Inflation Estimation
 # ------------------------------------------------------------------------------
-# Quantlet:    MTS_afns_uk
+# Quantlet: MTS_afns_france
 # ------------------------------------------------------------------------------
-# Description: The estimation results for U.K. derived from the AFNS model in 
-#              multi-maturity term structue. Graphic showing the filtered and 
-#              predicted state variables.
+# Description: The estimation results for France derived from the AFNS
+# model in multi-maturity term structue. Graphic showing the filtered
+# and predicted state variables.
 # ------------------------------------------------------------------------------
-# Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond,
-#              plot, filter, estimation, extrapolation, dynamics
+# Keywords: Kalman filter, optimization, MLE, maximum likelihood, bond,
+# plot, filter, estimation, extrapolation, dynamics
 # ------------------------------------------------------------------------------
 # See also:
 # ------------------------------------------------------------------------------
-# Author:      Shi Chen
+# Author: Shi Chen
 # ------------------------------------------------------------------------------
 
 # clear history
@@ -28,28 +28,32 @@ lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
 setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code//MTS_Qcodes")
 
-## read data of U.K.
-ukdata1 = read.csv("ukspot_nom.csv", header = F, sep = ";")  #U.K. nominal bonds
-ukdate = as.character(ukdata1[, 1])
-st = which(ukdate == "30 Jun 06")
-et = which(ukdate == "31 Dez 14")
-ukdata11 = ukdata1[(st:et), 3:51]
+## read data of France
+frdata1 = read.csv("frnom2.csv", header = F, sep = ";")
+frdate = as.character(frdata1[, 2])
+st = which(frdate == "30.06.2006")
+et = which(frdate == "31.12.2014")
+frdata11 = frdata1[(st:et), 3:14]
 
-ukdata2 = read.csv("ukspot_real.csv", header = F, sep = ";")  #U.K. inflation-indexed bonds
-ukdate = as.character(ukdata2[, 1])
-st = which(ukdate == "30 Jun 06")
-et = which(ukdate == "31 Dez 14")
-ukdata22 = ukdata2[(st:et), 2:47]
-uknom = cbind(ukdata11[, 5], ukdata11[, 7], ukdata11[, 9])
-ukinf = cbind(ukdata22[, 2], ukdata22[, 4], ukdata22[, 6])
-ukmat = c(3, 4, 5)
+frdata2 = read.csv("frinf_bloom.csv", header = F, sep = ";")
+frdate = as.character(frdata2[, 1])
+st = which(frdate == "30.06.2006")
+et = which(frdate == "31.12.2014")
+frdata22 = frdata2[(st:et), 2:9]
 
-ukjoi = cbind(uknom[, 1], ukinf[, 1])
-for (i in 2:length(ukmat)) {
-  ukjoi = cbind(ukjoi, uknom[, i], ukinf[, i])
+frnom = cbind(frdata11[, 2], frdata11[, 4], frdata11[, 9])
+frinf = cbind(frdata22[, 2], frdata22[, 4], frdata22[, 5])
+frmat = c(3, 5, 10)
+
+frjoi = cbind(frnom[, 1], frinf[, 1])
+for (i in 2:length(frmat)) {
+  frjoi = cbind(frjoi, frnom[, i], frinf[, i])
 }
 
-y51 = t(ukjoi)
+frbei = frnom - frinf
+ts.frbeipre = ts(frbei[, 1], frequency = 12, start = c(2006, 6))
+
+y51 = t(frjoi)
 
 yieldadj_joint = function(sigma11, sigma12 = 0, sigma13 = 0, sigma21 = 0, 
                           sigma22, sigma23 = 0, sigma31 = 0, sigma32 = 0, sigma33, sigma44, lambda, 
@@ -94,14 +98,14 @@ afnsss = function(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13,
                   t14, t15, t16, s1, s2, s3, s4, g1, g2, l1, h1, h2, h3, h4) {
   Tt = matrix(c(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, 
                 t14, t15, t16), nr = 4)
-  Zt = rbind(Meloading_joint(lambda = l1, alphaS = g1, alphaC = g2, time = ukmat[1]), 
-             Meloading_joint(lambda = l1, alphaS = g1, alphaC = g2, time = ukmat[2]), 
-             Meloading_joint(lambda = l1, alphaS = g1, alphaC = g2, time = ukmat[3]))
+  Zt = rbind(Meloading_joint(lambda = l1, alphaS = g1, alphaC = g2, time = frmat[1]), 
+             Meloading_joint(lambda = l1, alphaS = g1, alphaC = g2, time = frmat[2]), 
+             Meloading_joint(lambda = l1, alphaS = g1, alphaC = g2, time = frmat[3]))
   ct = matrix(rep(c(yieldadj_joint(sigma11 = h1, sigma22 = h2, sigma33 = h3, 
-                                   sigma44 = h4, lambda = l1, time = ukmat[1]), yieldadj_joint(sigma11 = h1, 
-                                                                                               sigma22 = h2, sigma33 = h3, sigma44 = h4, lambda = l1, time = ukmat[2]), 
+                                   sigma44 = h4, lambda = l1, time = frmat[1]), yieldadj_joint(sigma11 = h1, 
+                                                                                               sigma22 = h2, sigma33 = h3, sigma44 = h4, lambda = l1, time = frmat[2]), 
                     yieldadj_joint(sigma11 = h1, sigma22 = h2, sigma33 = h3, sigma44 = h4, 
-                                   lambda = l1, time = ukmat[1])), each = 2), nr = 6, nc = 1)
+                                   lambda = l1, time = frmat[1])), each = 2), nr = 6, nc = 1)
   dt = matrix(c(1 - t1, t2, t3, t4, t5, 1 - t6, t7, t8, t9, t10, 1 - 
                   t11, t12, t13, t14, t15, 1 - t16), nr = 4) %*% matrix(c(s1, s2, 
                                                                           s3, s4), nr = 4)
@@ -114,7 +118,6 @@ afnsss = function(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13,
               HHt = HHt))
 }
 
-## The objective function passed to 'optim'
 objective = function(theta, yt) {
   sp = afnsss(theta["t1"], theta["t2"], theta["t3"], theta["t4"], theta["t5"], 
               theta["t6"], theta["t7"], theta["t8"], theta["t9"], theta["t10"], 
@@ -127,8 +130,11 @@ objective = function(theta, yt) {
   return(-ans$logLik)
 }
 
-theta = c(t = c(0.8, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.6), 
-          s = c(0.08, 0.05, 0.03, 0.07), g = c(0.4, 0.3), l1 = c(0.7), h = c(0.06, 
+
+# theta = c(t=c(0.7,0,0,0,0,0.8,0,0,0,0,0.5,0,0,0,0,0.6), s=c(0.08,
+# 0.05, 0.03, 0.07), g=c(0.7,0.3),l1=c(0.7), h=c(0.06,0.05,0.07,0.06))
+theta = c(t = c(0.7, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.6), 
+          s = c(0.08, 0.05, 0.03, 0.07), g = c(0.7, 0.3), l1 = c(0.7), h = c(0.06, 
                                                                              0.05, 0.07, 0.06))
 
 fit = optim(theta, objective, yt = y51, hessian = TRUE)
@@ -142,13 +148,13 @@ ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
 res = matrix(rowMeans(ans$vt[, 2:103]), nr = 6)
-joiuk0915ans = ans
-joiuk0915fit = fit
-save(joiuk0915ans, file = "joiuk0915ans.RData")
-save(joiuk0915fit, file = "joiuk0915fit.RData")
+joifr0915ans = ans
+joifr0915fit = fit
+save(joifr0915ans, file = "joifr0915ans.RData")
+save(joifr0915fit, file = "joifr0915fit.RData")
 
-## The plots of filtered and predicted state variables 
-## Another approach: plot.fkf(ans, CI=NA)
+## The plots of filtered and predicted state variables Another approach:
+## plot.fkf(ans, CI=NA)
 plot(ans$at[1, -1], type = "l", col = "red", ylab = "State variables", 
      xlab = "", ylim = c(-4, 6), lwd = 2)
 lines(ans$att[1, -1], lty = 2, col = "red", lwd = 2)
