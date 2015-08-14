@@ -1,18 +1,18 @@
 # ------------------------------------------------------------------------------
-# Project: MTS - Modeling of Term Structure for Inflation Estimation
+# Project:     MTS - Modeling of Term Structure for Inflation Estimation
 # ------------------------------------------------------------------------------
-# Quantlet: MTS_afns_uk
+# Quantlet:    MTS_afns_uk
 # ------------------------------------------------------------------------------
-# Description: The estimation results of the AFNS model in
-# multi-maturity term structue. It also plots the filtered and
-# predicted state variables: four latent factors proposed in the paper.
+# Description: The estimation results of the AFNS model in multi-maturity term
+#              structue. It also plots the filtered and predicted state
+#              variables: four latent factors proposed in the paper.
 # ------------------------------------------------------------------------------
-# Keywords: Kalman filter, optimization, MLE, maximum likelihood, bond,
-# plot, filter, estimation, extrapolation, dynamics
+# Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond,
+#              plot, filter, estimation, extrapolation, dynamics
 # ------------------------------------------------------------------------------
 # See also:
 # ------------------------------------------------------------------------------
-# Author: Shi Chen
+# Author:      Shi Chen
 # ------------------------------------------------------------------------------
 
 # clear history
@@ -147,14 +147,14 @@ joiuk0915fit = fit
 save(joiuk0915ans, file = "joiuk0915ans.RData")
 save(joiuk0915fit, file = "joiuk0915fit.RData")
 
-## The plots of filtered and predicted state variables plot.fkf(ans,
-## CI=NA)
+## The plots of filtered and predicted state variables 
+## Another approach: plot.fkf(ans, CI=NA)
 plot(ans$at[1, -1], type = "l", col = "red", ylab = "State variables", 
-     xlab = "", ylim = c(-4, 6))
-lines(ans$att[1, -1], lty = 2, col = "red")
-lines(ans$at[2, -1], lty = 1, col = "purple")
-lines(ans$att[2, -1], lty = 2, col = "purple")
-lines(ans$at[3, -1], lty = 1, col = "grey3")
-lines(ans$att[3, -1], lty = 2, col = "grey3")
-lines(ans$at[4, -1], lty = 1, col = "blue")
-lines(ans$att[4, -1], lty = 2, col = "blue")
+     xlab = "", ylim = c(-4, 6), lwd = 2)
+lines(ans$att[1, -1], lty = 2, col = "red", lwd = 2)
+lines(ans$at[2, -1], lty = 1, col = "purple", lwd = 2)
+lines(ans$att[2, -1], lty = 2, col = "purple", lwd = 2)
+lines(ans$at[3, -1], lty = 1, col = "grey3", lwd = 2)
+lines(ans$att[3, -1], lty = 2, col = "grey3", lwd = 2)
+lines(ans$at[4, -1], lty = 1, col = "blue", lwd = 2)
+lines(ans$att[4, -1], lty = 2, col = "blue", lwd = 2)
