@@ -3,9 +3,9 @@
 # ------------------------------------------------------------------------------
 # Quantlet:    MTS_afns_uk
 # ------------------------------------------------------------------------------
-# Description: The estimation results of the AFNS model in multi-maturity term
-#              structue. It also plots the filtered and predicted state
-#              variables: four latent factors proposed in the paper.
+# Description: The estimation results for U.K. derived from the AFNS model in 
+#              multi-maturity term structue . Graphic showing the filtered and 
+#              predicted state variables.
 # ------------------------------------------------------------------------------
 # Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond,
 #              plot, filter, estimation, extrapolation, dynamics
