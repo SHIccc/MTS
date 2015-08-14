@@ -1,18 +1,18 @@
 # ------------------------------------------------------------------------------
-# Project: MTS - Modeling of Term Structure for Inflation Estimation
+# Project:     MTS - Modeling of Term Structure for Inflation Estimation
 # ------------------------------------------------------------------------------
-# Quantlet: MTS_afns_france
+# Quantlet:    MTS_afns_france
 # ------------------------------------------------------------------------------
-# Description: The estimation results for France derived from the AFNS
-# model in multi-maturity term structue. Graphic showing the filtered
-# and predicted state variables.
+# Description: The estimation results for France derived from the AFNS model in
+#              multi-maturity term structue. Graphic showing the filtered
+#              and predicted state variables.
 # ------------------------------------------------------------------------------
-# Keywords: Kalman filter, optimization, MLE, maximum likelihood, bond,
-# plot, filter, estimation, extrapolation, dynamics
+# Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond,
+#              plot, filter, estimation, extrapolation, dynamics
 # ------------------------------------------------------------------------------
-# See also:
+# See also:    
 # ------------------------------------------------------------------------------
-# Author: Shi Chen
+# Author:      Shi Chen
 # ------------------------------------------------------------------------------
 
 # clear history
