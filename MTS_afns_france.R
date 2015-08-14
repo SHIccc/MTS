@@ -26,7 +26,7 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
-setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code//MTS_Qcodes")
+setwd("")
 
 ## read data of France
 frdata1 = read.csv("frnom2.csv", header = F, sep = ";")
@@ -130,9 +130,6 @@ objective = function(theta, yt) {
   return(-ans$logLik)
 }
 
-
-# theta = c(t=c(0.7,0,0,0,0,0.8,0,0,0,0,0.5,0,0,0,0,0.6), s=c(0.08,
-# 0.05, 0.03, 0.07), g=c(0.7,0.3),l1=c(0.7), h=c(0.06,0.05,0.07,0.06))
 theta = c(t = c(0.7, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.6), 
           s = c(0.08, 0.05, 0.03, 0.07), g = c(0.7, 0.3), l1 = c(0.7), h = c(0.06, 
                                                                              0.05, 0.07, 0.06))
