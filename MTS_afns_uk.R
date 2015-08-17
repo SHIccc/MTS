@@ -4,7 +4,7 @@
 # Quantlet:    MTS_afns_uk
 # ------------------------------------------------------------------------------
 # Description: The estimation results for U.K. derived from the AFNS model in 
-#              multi-maturity term structue. Graphic showing the filtered and 
+#              multi-maturity term structue . Graphic showing the filtered and 
 #              predicted state variables.
 # ------------------------------------------------------------------------------
 # Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond,
@@ -127,9 +127,9 @@ objective = function(theta, yt) {
   return(-ans$logLik)
 }
 
-theta = c(t = c(0.8, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.6), 
-          s = c(0.08, 0.05, 0.03, 0.07), g = c(0.4, 0.3), l1 = c(0.7), h = c(0.06, 
-                                                                             0.05, 0.07, 0.06))
+theta <- c(t = c(0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8), 
+           s = c(0.2, 0.2, 0.2, 0.2), g = c(0.6, 0.6), l1 = c(0.7), h = c(0.2, 
+                                                                          0.2, 0.2, 0.2))
 
 fit = optim(theta, objective, yt = y51, hessian = TRUE)
 sp = afnsss(fit$par["t1"], fit$par["t2"], fit$par["t3"], fit$par["t4"], 
@@ -141,6 +141,13 @@ sp = afnsss(fit$par["t1"], fit$par["t2"], fit$par["t3"], fit$par["t4"],
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
+plot(ans$vt[1, ], type = "l", ylim = c(-2, 3))
+lines(ans$vt[2, ])
+lines(ans$vt[3, ])
+lines(ans$vt[4, ])
+lines(ans$vt[5, ])
+lines(ans$vt[6, ])
+
 res = matrix(rowMeans(ans$vt[, 2:103]), nr = 6)
 joiuk0915ans = ans
 joiuk0915fit = fit
@@ -150,7 +157,7 @@ save(joiuk0915fit, file = "joiuk0915fit.RData")
 ## The plots of filtered and predicted state variables 
 ## Another approach: plot.fkf(ans, CI=NA)
 plot(ans$at[1, -1], type = "l", col = "red", ylab = "State variables", 
-     xlab = "", ylim = c(-4, 6), lwd = 2)
+     xlab = "", ylim = c(-6, 6), lwd = 2)
 lines(ans$att[1, -1], lty = 2, col = "red", lwd = 2)
 lines(ans$at[2, -1], lty = 1, col = "purple", lwd = 2)
 lines(ans$att[2, -1], lty = 2, col = "purple", lwd = 2)
@@ -158,3 +165,4 @@ lines(ans$at[3, -1], lty = 1, col = "grey3", lwd = 2)
 lines(ans$att[3, -1], lty = 2, col = "grey3", lwd = 2)
 lines(ans$at[4, -1], lty = 1, col = "blue", lwd = 2)
 lines(ans$att[4, -1], lty = 2, col = "blue", lwd = 2)
+
