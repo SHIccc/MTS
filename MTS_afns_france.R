@@ -26,7 +26,7 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
-setwd("")
+setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code//MTS_Qcodes")
 
 ## read data of France
 frdata1 = read.csv("frnom2.csv", header = F, sep = ";")
@@ -49,9 +49,6 @@ frjoi = cbind(frnom[, 1], frinf[, 1])
 for (i in 2:length(frmat)) {
   frjoi = cbind(frjoi, frnom[, i], frinf[, i])
 }
-
-frbei = frnom - frinf
-ts.frbeipre = ts(frbei[, 1], frequency = 12, start = c(2006, 6))
 
 y51 = t(frjoi)
 
@@ -130,9 +127,8 @@ objective = function(theta, yt) {
   return(-ans$logLik)
 }
 
-theta = c(t = c(0.7, 0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.6), 
-          s = c(0.08, 0.05, 0.03, 0.07), g = c(0.7, 0.3), l1 = c(0.7), h = c(0.06, 
-                                                                             0.05, 0.07, 0.06))
+theta <- c(t = c(0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8), s = c(0.2, 0.2, 0.2, 0.2), g = c(0.6, 0.6), l1 = c(0.7), h = c(0.2, 0.2, 0.2, 0.2))
+
 
 fit = optim(theta, objective, yt = y51, hessian = TRUE)
 sp = afnsss(fit$par["t1"], fit$par["t2"], fit$par["t3"], fit$par["t4"], 
@@ -144,6 +140,13 @@ sp = afnsss(fit$par["t1"], fit$par["t2"], fit$par["t3"], fit$par["t4"],
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
+plot(ans$vt[1,],type="l", ylim=c(-2,3))
+lines(ans$vt[2,])
+lines(ans$vt[3,])
+lines(ans$vt[4,])
+lines(ans$vt[5,])
+lines(ans$vt[6,])
+
 res = matrix(rowMeans(ans$vt[, 2:103]), nr = 6)
 joifr0915ans = ans
 joifr0915fit = fit
@@ -153,7 +156,7 @@ save(joifr0915fit, file = "joifr0915fit.RData")
 ## The plots of filtered and predicted state variables Another approach:
 ## plot.fkf(ans, CI=NA)
 plot(ans$at[1, -1], type = "l", col = "red", ylab = "State variables", 
-     xlab = "", ylim = c(-4, 6), lwd = 2)
+     xlab = "", ylim = c(-6, 6), lwd = 2)
 lines(ans$att[1, -1], lty = 2, col = "red", lwd = 2)
 lines(ans$at[2, -1], lty = 1, col = "purple", lwd = 2)
 lines(ans$att[2, -1], lty = 2, col = "purple", lwd = 2)
