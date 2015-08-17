@@ -20,13 +20,11 @@ rm(list = ls(all = TRUE))
 graphics.off()
 
 # install and load packages
-libraries = c("zoo", "FKF")
+libraries = c("zoo", "FKF", "expm", "Matrix")
 lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
-
-setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code//MTS_Qcodes")
 
 ## read data of Sweden
 swdata1 = read.csv("swnom.csv", header = F, sep = ";")
@@ -141,19 +139,10 @@ sp = afnsss(fit$par["t1"], fit$par["t2"], fit$par["t3"], fit$par["t4"],
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
-plot(ans$vt[1, ], type = "l", ylim = c(-3, 3))
-lines(ans$vt[2, ])
-lines(ans$vt[3, ])
-lines(ans$vt[4, ])
-lines(ans$vt[5, ])
-lines(ans$vt[6, ])
-
 joisw0714ans = ans
 joisw0714fit = fit
 save(joisw0714ans, file = "joisw0714ans.RData")
 save(joisw0714fit, file = "joisw0714fit.RData")
-load("joisw0714ans.RData")
-load("joisw0714fit.RData")
 
 ## The plots of filtered and predicted state variables Another approach:
 ## plot.fkf(ans, CI=NA)
