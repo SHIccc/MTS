@@ -7,8 +7,8 @@
 #              multi-maturity term structue . Graphic showing the filtered and 
 #              predicted state variables.
 # ------------------------------------------------------------------------------
-# Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond,
-#              plot, filter, estimation, extrapolation, dynamics
+# Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond, plot,
+#              filter, estimation, extrapolation, dynamics, term structure
 # ------------------------------------------------------------------------------
 # See also:
 # ------------------------------------------------------------------------------
