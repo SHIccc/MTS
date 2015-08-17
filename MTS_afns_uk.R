@@ -20,13 +20,11 @@ rm(list = ls(all = TRUE))
 graphics.off()
 
 # install and load packages
-libraries = c("zoo", "FKF")
+libraries = c("zoo", "FKF", "expm", "Matrix")
 lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
-
-setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code//MTS_Qcodes")
 
 ## read data of U.K.
 ukdata1 = read.csv("ukspot_nom.csv", header = F, sep = ";")  #U.K. nominal bonds
@@ -140,13 +138,6 @@ sp = afnsss(fit$par["t1"], fit$par["t2"], fit$par["t3"], fit$par["t4"],
             fit$par["h2"], fit$par["h3"], fit$par["h4"])
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
-
-plot(ans$vt[1, ], type = "l", ylim = c(-2, 3))
-lines(ans$vt[2, ])
-lines(ans$vt[3, ])
-lines(ans$vt[4, ])
-lines(ans$vt[5, ])
-lines(ans$vt[6, ])
 
 res = matrix(rowMeans(ans$vt[, 2:103]), nr = 6)
 joiuk0915ans = ans
