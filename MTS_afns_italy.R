@@ -26,8 +26,6 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
-setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code//MTS_Qcodes")
-
 ### read data of Italy
 itdata1 = read.csv("itnom.csv", header = F, sep = ";")
 itdate = as.character(itdata1[, 1])
@@ -122,9 +120,6 @@ joiit0715ans <- ans
 joiit0715fit <- fit
 save(joiit0715ans, file="joiit0715ans.RData")
 save(joiit0715fit, file="joiit0715fit.RData")
-load("joiit0715ans.RData")
-load("joiit0715fit.RData")
-
 
 ## The plots of filtered and predicted state variables Another approach:
 ## plot.fkf(ans, CI=NA)
@@ -137,4 +132,3 @@ lines(ans$at[3, -1], lty = 1, col = "grey3", lwd = 2)
 lines(ans$att[3, -1], lty = 2, col = "grey3", lwd = 2)
 lines(ans$at[4, -1], lty = 1, col = "blue", lwd = 2)
 lines(ans$att[4, -1], lty = 2, col = "blue", lwd = 2)
-
