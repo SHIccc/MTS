@@ -8,8 +8,7 @@
 #              and predicted state variables.
 # ------------------------------------------------------------------------------
 # Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond, plot,
-#              filter, estimation, extrapolation, dynamics, term structure,
-#              interest-rate
+#              filter, estimation, extrapolation, dynamics, term structure
 # ------------------------------------------------------------------------------
 # See also:    
 # ------------------------------------------------------------------------------
@@ -30,7 +29,6 @@ lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 ### read data of Italy
 itdata1 = read.csv("itnom.csv", header = F, sep = ";")
 itdate = as.character(itdata1[, 1])
-# st = which(itdate == '30.06.2006')
 st = which(itdate == "29.06.2007")
 et = which(itdate == "31.12.2014")
 itdata11 = itdata1[(st:et), 2:12]
@@ -131,7 +129,6 @@ theta = c(t = c(0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8),
           s = c(0.2, 0.2, 0.2, 0.2), g = c(0.6, 0.6), l1 = c(0.8), h = c(0.2, 
                                                                          0.2, 0.2, 0.2))
 
-
 fit = optim(theta, objective, yt = y51, hessian = TRUE)
 sp = afnsss(fit$par["t1"], fit$par["t2"], fit$par["t3"], fit$par["t4"], 
             fit$par["t5"], fit$par["t6"], fit$par["t7"], fit$par["t8"], fit$par["t9"], 
@@ -146,11 +143,8 @@ joiit0715ans = ans
 joiit0715fit = fit
 save(joiit0715ans, file = "joiit0715ans.RData")
 save(joiit0715fit, file = "joiit0715fit.RData")
-load("joiit0715ans.RData")
-load("joiit0715fit.RData")
 
-
-## The plots of filtered and predicted state variables Another approach:
+## The plots of filtered (att) and predicted (at) state variables Another approach:
 ## plot.fkf(ans, CI=NA)
 plot(ans$at[1, -1], type = "l", col = "red", ylab = "State variables", 
      xlab = "", ylim = c(-10, 9), lwd = 2)

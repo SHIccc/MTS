@@ -8,8 +8,7 @@
 #              predicted state variables.
 # ------------------------------------------------------------------------------
 # Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond, plot,
-#              filter, estimation, extrapolation, dynamics, term structure,
-#              interest-rate
+#              filter, estimation, extrapolation, dynamics, term structure
 # ------------------------------------------------------------------------------
 # See also:
 # ------------------------------------------------------------------------------
@@ -21,7 +20,7 @@ rm(list = ls(all = TRUE))
 graphics.off()
 
 # install and load packages
-libraries = c("zoo", "FKF")
+libraries = c("zoo", "FKF", "expm", "Matrix")
 lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
@@ -139,7 +138,6 @@ sp = afnsss(fit$par["t1"], fit$par["t2"], fit$par["t3"], fit$par["t4"],
             fit$par["h2"], fit$par["h3"], fit$par["h4"])
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
-
 
 res = matrix(rowMeans(ans$vt[, 2:103]), nr = 6)
 joiuk0915ans = ans

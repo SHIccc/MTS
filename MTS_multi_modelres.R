@@ -7,8 +7,8 @@
 #              multi-maturity term structue. Graphic showing the filtered
 #              and predicted state variables.
 # ------------------------------------------------------------------------------
-# Keywords:    plot, error, graphical representation, estimation, bond,
-#              returns, log-returns, interest-rate
+# Keywords:    plot, error, graphical representation, estimation, bond
+#              returns, log-returns
 # ------------------------------------------------------------------------------
 # See also:    
 # ------------------------------------------------------------------------------
