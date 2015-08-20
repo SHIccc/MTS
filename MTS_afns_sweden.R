@@ -153,8 +153,6 @@ joisw0714ans = ans
 joisw0714fit = fit
 save(joisw0714ans, file = "joisw0714ans.RData")
 save(joisw0714fit, file = "joisw0714fit.RData")
-load("joisw0714ans.RData")
-load("joisw0714fit.RData")
 
 ## The plots of filtered and predicted state variables Another approach:
 ## plot.fkf(ans, CI=NA)
