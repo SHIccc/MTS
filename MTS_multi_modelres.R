@@ -26,8 +26,6 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
-setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code//MTS_Qcodes")
-
 par(mfrow = c(3, 2), pty = "m")
 ## UK
 load("joiuk0915ans.RData")
