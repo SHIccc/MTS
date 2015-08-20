@@ -8,7 +8,7 @@
 #              Italy and Sweden.
 # ------------------------------------------------------------------------------
 # Keywords:    plot, time-series, graphical representation, visualization,
-#              bond,
+#              bond, interest-rate
 # ------------------------------------------------------------------------------
 # See also:
 # ------------------------------------------------------------------------------
@@ -25,8 +25,6 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
-
-setwd("")
 
 ## read data of U.K.
 ukdata1 = read.csv("ukspot_nom.csv", header = F, sep = ";")  #U.K. nominal bonds

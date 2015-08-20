@@ -8,7 +8,8 @@
 #              and predicted state variables.
 # ------------------------------------------------------------------------------
 # Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond, plot,
-#              filter, estimation, extrapolation, dynamics, term structure
+#              filter, estimation, extrapolation, dynamics, term structure,
+#              interest-rate,
 # ------------------------------------------------------------------------------
 # See also:    
 # ------------------------------------------------------------------------------
@@ -25,8 +26,6 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
-
-setwd("")
 
 ## read data of France
 frdata1 = read.csv("frnom2.csv", header = F, sep = ";")
