@@ -28,7 +28,6 @@ lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
 ## read CDS data: eucds1 contains CDS across five countries: 06.2009-12.2014
 ## eucds2 contains CDS only for Italy
-setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code/MTS_Qcodes/")
 eucds = read.csv("eurocds_33343.csv", header = T, sep = ";")
 eucds_date = eucds[, 1]
 st1 = which(eucds_date == "01.11.2009")
@@ -106,9 +105,6 @@ objective = function(theta, yt) {
   return(-ans$logLik)
 }
 
-#theta = c(q1 = c(0.3), b = c(0.3, 0.3, 0.3, 0.3, 0.3), 
-#          a = c(0.2, 0.2, 0.2, 0.2, 0.2), p1 = c(0.7))
-
 theta = c(q1 = c(0.2), b = c(0.5, 0.5, 0.5, 0.5, 0.5), 
           a = c(0.3, 0.3, 0.3, 0.3, 0.3), p1 = c(0.8))
 
@@ -118,13 +114,6 @@ sp = jointmodel(fit$par["q1"], fit$par["b1"], fit$par["b2"], fit$par["b3"],
             fit$par["a4"], fit$par["a5"], fit$par["p1"])
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
-
-plot(ans$vt[1, ], ylim = c(-2, 2), type = "l")
-lines(ans$vt[2, ])
-lines(ans$vt[3, ])
-lines(ans$vt[4, ])
-lines(ans$vt[5, ])
-abline(h = 0, col = "grey", lwd = 2)
 
 plot(ukepi, type = "l", col = "deeppink2", ylim = c(0, 3), lwd = 2)
 lines(frepi, col = "dodgerblue1", lwd = 2)
@@ -138,9 +127,6 @@ commonfit0915 = fit
 commonans0915 = ans
 save(commonfit0915, file = "commonfit0915.RData")
 save(commonans0915, file = "commonans0915.RData")
-load("commonfit0915.RData")
-load("commonans0915.RData")
-
 
 ## select the time period contains four countries
 ukepi = uk.epi[15:39]
@@ -184,12 +170,6 @@ objective = function(theta, yt) {
   return(-ans$logLik)
 }
 
-#theta = c(q1 = c(0.3), b = c(0.3, 0.3, 0.3, 0.3), 
-#          a = c(0.2, 0.2, 0.2, 0.2), p1 = c(0.7))
-
-theta = c(q1 = c(0.2), b = c(0.2, 0.2, 0.2, 0.2), 
-          a = c(0.3, 0.3, 0.3, 0.3), p1 = c(0.8))
-
 theta = c(q1=c(0.5), b=c(0.6, 0.6, 0.6, 0.6), a=c(0.2,0.2,0.2,0.2), p1=c(0.8))
 
 theta = c(q1=c(0.8), b=c(0.2, 0.2, 0.2, 0.2), a=c(0.2,0.2,0.2,0.2), p1=c(0.8))
@@ -200,20 +180,12 @@ sp = jointmodel(fit$par["q1"], fit$par["b1"], fit$par["b2"], fit$par["b3"], fit$
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, 
            Zt = sp$Zt, HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
-plot(ans$vt[1, ], ylim = c(-2, 2), type = "l")
-lines(ans$vt[2, ])
-lines(ans$vt[3, ])
-lines(ans$vt[4, ])
-abline(h = 0, col = "grey", lwd = 2)
-
 plot(ukepi, type="l",col="deeppink2",ylim=c(-1,5), lwd=2)
 lines(frepi,col="dodgerblue1", lwd=2)
 lines(itepi, col="orange1", lwd=2)
 lines(swepi, col="gray", lwd=2)
 comexp0709 = c(ans$at[-1])
 lines(comexp0709, col="black", lwd=2)
-
-
 
 comexp0714 = c(comexp0709, comexp0914)
 comexpts1 = ts(comexp0714, frequency=12, start=c(2006,9))
@@ -222,5 +194,3 @@ commonfit0709 = fit
 commonans0709 = ans
 save(commonfit0709, file="commonfit0709.RData")
 save(commonans0709, file="commonans0709.RData")
-load("commonfit0709.RData")
-load("commonans0709.RData")
