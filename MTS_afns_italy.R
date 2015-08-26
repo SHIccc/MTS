@@ -16,25 +16,25 @@
 # Author:      Shi Chen
 # ------------------------------------------------------------------------------
 
-# clear history
+## clear history
 rm(list = ls(all = TRUE))
 graphics.off()
 
-# install and load packages
+## install and load packages
 libraries = c("zoo", "FKF", "expm", "Matrix")
 lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
-### read data of Italy
-itdata1 = read.csv("itnom.csv", header = F, sep = ";")
+## read data of Italy
+itdata1 = read.csv("italy_nom.csv", header = F, sep = ";")
 itdate = as.character(itdata1[, 1])
 st = which(itdate == "29.06.2007")
 et = which(itdate == "31.12.2014")
 itdata11 = itdata1[(st:et), 2:12]
 
-itdata2 = read.csv("itinf2.csv", header = F, sep = ";")
+itdata2 = read.csv("italy_inf.csv", header = F, sep = ";")
 itdate = as.character(itdata2[, 1])
 st = which(itdate == "29.06.2007")
 et = which(itdate == "31.12.2014")

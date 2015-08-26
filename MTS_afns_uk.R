@@ -4,7 +4,7 @@
 # Quantlet:    MTS_afns_uk
 # ------------------------------------------------------------------------------
 # Description: The estimation results for U.K. derived from the AFNS model in 
-#              multi-maturity term structue . Graphic showing the filtered and 
+#              multi-maturity term structrue. Graphic showing the filtered and 
 #              predicted state variables.
 # ------------------------------------------------------------------------------
 # Keywords:    Kalman filter, optimization, MLE, maximum likelihood, bond, plot,
@@ -16,11 +16,11 @@
 # Author:      Shi Chen
 # ------------------------------------------------------------------------------
 
-# clear history
+## clear history
 rm(list = ls(all = TRUE))
 graphics.off()
 
-# install and load packages
+## install and load packages
 libraries = c("zoo", "FKF", "expm", "Matrix")
 lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)

@@ -15,11 +15,11 @@
 # Author:      Shi Chen
 # ------------------------------------------------------------------------------
 
-# clear history
+## clear history
 rm(list = ls(all = TRUE))
 graphics.off()
 
-# install and load packages
+## install and load packages
 libraries = c("zoo")
 lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
@@ -103,7 +103,7 @@ for (i in 2:length(frmat)) {
 frbei = frnom - frinf
 ts.frbeipre = ts(frbei[, 1], frequency = 12, start = c(2006, 6))
 
-### read data of Italy
+## read data of Italy
 itdata1 = read.csv("itnom.csv", header = F, sep = ";")
 itdate = as.character(itdata1[, 1])
 st = which(itdate == "30.06.2006")
@@ -153,7 +153,7 @@ for (i in 2:length(swmat)) {
 swbei = swnom - swinf
 ts.swbeipre = ts(swbei[, 1], frequency = 12, start = c(2007, 4))
 
-#### BEIR plot
+## BEIR plot
 par(mfrow = c(1, 1), pty = "m")
 plot(ts.ukbeipre, lty = 3, lwd = 3, col = "red", ylim = c(-3, 4), ylab = "BEIR")
 lines(ts.debeipre, lty = 2, col = "blue", lwd = 3)

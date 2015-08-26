@@ -16,11 +16,11 @@
 # Author:      Shi Chen
 # ------------------------------------------------------------------------------
 
-# clear history
+## clear history
 rm(list = ls(all = TRUE))
 graphics.off()
 
-# install and load packages
+## install and load packages
 libraries = c("zoo", "FKF")
 lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
