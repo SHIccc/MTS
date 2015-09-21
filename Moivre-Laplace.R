@@ -30,9 +30,9 @@ N = 1000000
 # Sample of the N stadardized binomial random variables
 bsample = (rbinom(N, n, p) - (n * p))/(sqrt(n * p * (1 - p)))
 
-# Plot 
-breakingpoints = seq(min(bsample), max(bsample), length.out = 40)
-hist(bsample, freq = FALSE, breaks = breakingpoints, xlab = "(k-np)/sqrt(np(1-p))", 
+# Plot
+breakingpoints = seq(min(bsample - 1), max(bsample + 1), length.out = 40)
+hist(bsample, freq = FALSE, breaks = breakingpoints, xlab = "(k-np)/sqrt(np(1-p))",
      ylab = "b(n,p;k)", xlim = c(min(bsample - 1), max(bsample + 1)),
      main = paste("n=", n, ", p=", p))
 
