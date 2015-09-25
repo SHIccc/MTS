@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------
 # Project:      Bachelor Thesis
 # ---------------------------------------------------------------------
-# Quantlet:     BCS_CLT_StandBinpdf
+# Quantlet:     Hist_pdf_binomial
 # ---------------------------------------------------------------------
 # Description:  Produces a histogram of a standardized binomial 
 #               distribution on behalf of empirical samples and shows 
@@ -19,7 +19,9 @@
 
 
 
-rm(list = ls(all = TRUE))
+# Clear loaded variables and close graphics
+closeAllConnections()
+rm(list=ls(all=TRUE))
 graphics.off()
 
 # Parameter settings of the binomial random variable and of the sample size N
@@ -28,15 +30,13 @@ p = 0.2
 N = 1000000
 
 # Sample of the N stadardized binomial random variables
-bsample = (rbinom(N, n, p) - (n * p))/(sqrt(n * p * (1 - p)))
+bsample = (rbinom(N,n,p)-(n*p))/(sqrt(n*p*(1-p)))
 
-# Plot
-breakingpoints = seq(min(bsample - 1), max(bsample + 1), length.out = 40)
-hist(bsample, freq = FALSE, breaks = breakingpoints, xlab = "(k-np)/sqrt(np(1-p))",
-     ylab = "b(n,p;k)", xlim = c(min(bsample - 1), max(bsample + 1)),
-     main = paste("n=", n, ", p=", p))
+# Plot 
+breakingpoints = seq(from=min(bsample-1),to=max(bsample+1),by=0.25)
+hist(bsample,freq=FALSE,breaks=breakingpoints,xlab="(k-np)/sqrt(np(1-p))",ylab="b(n,p;k)",xlim=c(min(bsample-1),max(bsample+1)),main=paste("n=",n,", p=",p))
 
-x = seq(min(bsample - 1), max(bsample + 1), by = 0.02)
-norm = dnorm(x, 0, 1)
-lines(x, norm, col = "dark red")
+x     = seq(min(bsample-1),max(bsample+1), by=0.02)
+norm  = dnorm(x,0,1)
+lines(x,norm,col="dark red")
 
