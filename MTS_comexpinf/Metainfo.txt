@@ -20,3 +20,5 @@ Datafile : 'expinf.RData'
 
 Example :
 - 'Common inflation factor estimated by the joint modeling of IE dynamics.'
+- 'Model residuals for modeling of IE dynamics with macroeconomic factor 
+over different countries.'
