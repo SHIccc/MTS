@@ -1,0 +1,22 @@
+
+Name of QuantLet : Modeling of Term Structure for Inflation Estimation
+
+Published in : 'Unpublished; Theoretical description 
+of tree and random forest model in: Shi Chen - 
+Inflation Co-movement across Countries in a Multi-maturity
+Term Structure: An Arbitrage-Free Approach'
+
+Description : 'Plots the breakeven inflation rate (BEIR) 
+across five different industrialized European countries 
+- U.K., Germany, France, Italy and Sweden.'
+
+Keywords : 'bond, graphical representation, plot, time-series, 
+visualization'
+
+See also : 
+
+Author : Shi Chen
+
+Submitted : 
+
+Example :
