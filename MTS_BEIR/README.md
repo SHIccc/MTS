@@ -26,10 +26,9 @@ Author : Shi Chen
 Submitted : 
 
 Example :
-
+```
 
 ![Picture1](MTS_BEIR.png)
-
 
 ```R
 ## clear history
