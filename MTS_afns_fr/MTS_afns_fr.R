@@ -66,17 +66,22 @@ yieldadj_joint = function(sigma11, sigma12 = 0, sigma13 = 0, sigma21 = 0,
   
   adj1 = Atilde * time^2/6
   adj2 = Btilde * (1/(2 * lambda^2) - (1 - exp(-lambda * time))/(lambda^3 * time) 
-                    + (1 - exp(-2 * time * lambda))/(3 * lambda^3 * time))
-  adj3 = Ctilde * (1/(2 * lambda^2) + exp(-lambda * time)/(lambda^2) - 
-                    time * exp(-2 * lambda * time)/(4 * lambda) - 3 * exp(-2 * lambda * time)/(4 * lambda^2) 
-                    - 2 * (1 - exp(-lambda * time))/(lambda^3 * time) + 5 * (1 - exp(-2 * lambda * time))/(8 * lambda^3 * time))
-  adj4 = Dtilde * (time/(2 * lambda) + exp(-lambda * time)/(lambda^2) 
-                    - (1 - exp(-lambda * time))/(lambda^3 * time))
+                + (1 - exp(-2 * time * lambda))/(3 * lambda^3 * time))
+  adj3 = Ctilde * (1/(2 * lambda^2) + exp(-lambda * time)/(lambda^2) 
+                - time * exp(-2 * lambda * time)/(4 * lambda) 
+                - 3 * exp(-2 * lambda * time)/(4 * lambda^2) 
+                - 2 * (1 - exp(-lambda * time))/(lambda^3 * time) 
+                + 5 * (1 - exp(-2 * lambda * time))/(8 * lambda^3 * time))
+  adj4 = Dtilde * (time/(2 * lambda) 
+                + exp(-lambda * time)/(lambda^2) 
+                - (1 - exp(-lambda * time))/(lambda^3 * time))
   adj5 = Etilde * (3 * exp(-lambda * time)/(lambda^2) + time/(2 * lambda) 
-                    + time * exp(-lambda * time)/lambda - 3 * (1 - exp(-lambda * time))/(lambda^3 * time))
-  adj6 = Ftilde * (1/(lambda^2) + exp(-lambda * time)/(lambda^2) - exp(-2 * lambda * time)/(2 * lambda^2) 
-                    - 3 * (1 - exp(-lambda * time))/(lambda^3 * time) 
-                    + 3 * (1 - exp(-2 * lambda * time))/(4 * lambda^3 * time))
+                + time * exp(-lambda * time)/lambda 
+                - 3 * (1 - exp(-lambda * time))/(lambda^3 * time))
+  adj6 = Ftilde * (1/(lambda^2) + exp(-lambda * time)/(lambda^2) 
+                - exp(-2 * lambda * time)/(2 * lambda^2) 
+                - 3 * (1 - exp(-lambda * time))/(lambda^3 * time) 
+                + 3 * (1 - exp(-2 * lambda * time))/(4 * lambda^3 * time))
   
   return(adj1 + adj2 + adj3 + adj4 + adj5 + adj6)
 }
