@@ -1,7 +1,7 @@
 
 ![http://quantnet.wiwi.hu-berlin.de/style/banner.png](http://quantnet.wiwi.hu-berlin.de/style/banner.png)
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **MTS_BEIR**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **MTS_sfns_de**
 
 
 ```yaml
@@ -28,7 +28,7 @@ Submitted :
 Example :
 ```
 
-![Picture1](MTS_BEIR.png)
+![Picture1](MTS_afns_de.png)
 
 ```R
 ## clear history
