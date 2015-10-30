@@ -1,22 +1,21 @@
-Name of QuantLet : MTS_comexpinf
+Name of QuantLet : MTS_multi_modelres
 
 Published in : MTS
 
-Description : 'Produce the estimation results derived from the 
-joint modeling of IE dynamics. Graphic showing the common inflation 
-factor and the model residuals.'
+Description : 'Plots the model residuals estimated from AFNS model in 
+a multi-maturity term structue for all the five sample countries.'
 
-Keywords : 'Kalman filter, MLE, estimation, filter, maximum-likelihood, 
-optimization, similarity'
+Keywords : 'bond, error, estimation, graphical representation, plot, returns'
 
 See also : 'MTS_afns_de, MTS_afns_fr, MTS_afns_it, MTS_afns_sw, MTS_afns_uk, 
-MTS_comexpinf_cds, MTS_expinf'
+MTS_comexpinf_cds, MTS_comexpinf, MTS_expinf'
 
 Author : Shi Chen
 
 Submitted :
 
-Datafile : 'expinf.RData'
+Datafile : 'joide0915ans.RData, joifr0915ans.RData, joiit0715ans.RData, 
+joisw0714ans.RData, joiuk0915ans.RData'
 
 Example :
-- 'Common inflation factor estimated by the joint modeling of IE dynamics.'
+- 'The model residuals for nominal and inflation-linked bonds estimated from multiple yield curve modeling over three different maturities.'
