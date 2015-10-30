@@ -65,30 +65,27 @@ yieldadj_joint = function(sigma11, sigma12 = 0, sigma13 = 0, sigma21 = 0,
   Ftilde = sigma21 * sigma31 + sigma22 * sigma32 + sigma23 * sigma33
   
   adj1 = Atilde * time^2/6
-  adj2 = Btilde * (1/(2 * lambda^2) - (1 - exp(-lambda * time))/(lambda^3 * 
-                                                                   time) + (1 - exp(-2 * time * lambda))/(3 * lambda^3 * time))
+  adj2 = Btilde * (1/(2 * lambda^2) - (1 - exp(-lambda * time))/(lambda^3 * time) 
+                    + (1 - exp(-2 * time * lambda))/(3 * lambda^3 * time))
   adj3 = Ctilde * (1/(2 * lambda^2) + exp(-lambda * time)/(lambda^2) - 
-                     time * exp(-2 * lambda * time)/(4 * lambda) - 3 * exp(-2 * lambda * 
-                                                                             time)/(4 * lambda^2) - 2 * (1 - exp(-lambda * time))/(lambda^3 * 
-                                                                                                                                     time) + 5 * (1 - exp(-2 * lambda * time))/(8 * lambda^3 * time))
-  adj4 = Dtilde * (time/(2 * lambda) + exp(-lambda * time)/(lambda^2) - 
-                     (1 - exp(-lambda * time))/(lambda^3 * time))
-  adj5 = Etilde * (3 * exp(-lambda * time)/(lambda^2) + time/(2 * lambda) + 
-                     time * exp(-lambda * time)/lambda - 3 * (1 - exp(-lambda * time))/(lambda^3 * 
-                                                                                          time))
-  adj6 = Ftilde * (1/(lambda^2) + exp(-lambda * time)/(lambda^2) - exp(-2 * 
-                                                                         lambda * time)/(2 * lambda^2) - 3 * (1 - exp(-lambda * time))/(lambda^3 * 
-                                                                                                                                          time) + 3 * (1 - exp(-2 * lambda * time))/(4 * lambda^3 * time))
+                    time * exp(-2 * lambda * time)/(4 * lambda) - 3 * exp(-2 * lambda * time)/(4 * lambda^2) 
+                    - 2 * (1 - exp(-lambda * time))/(lambda^3 * time) + 5 * (1 - exp(-2 * lambda * time))/(8 * lambda^3 * time))
+  adj4 = Dtilde * (time/(2 * lambda) + exp(-lambda * time)/(lambda^2) 
+                    - (1 - exp(-lambda * time))/(lambda^3 * time))
+  adj5 = Etilde * (3 * exp(-lambda * time)/(lambda^2) + time/(2 * lambda) 
+                    + time * exp(-lambda * time)/lambda - 3 * (1 - exp(-lambda * time))/(lambda^3 * time))
+  adj6 = Ftilde * (1/(lambda^2) + exp(-lambda * time)/(lambda^2) - exp(-2 * lambda * time)/(2 * lambda^2) 
+                    - 3 * (1 - exp(-lambda * time))/(lambda^3 * time) 
+                    + 3 * (1 - exp(-2 * lambda * time))/(4 * lambda^3 * time))
   
   return(adj1 + adj2 + adj3 + adj4 + adj5 + adj6)
 }
 
 Meloading_joint = function(lambda, alphaS, alphaC, time = maturity) {
-  row1 = c(1, (1 - exp(-lambda * time))/(lambda * time), (1 - exp(-lambda * 
-                                                                    time))/(lambda * time) - exp(-lambda * time), 0)
+  row1 = c(1, (1 - exp(-lambda * time))/(lambda * time), (1 - exp(-lambda * time))/(lambda * time) 
+           - exp(-lambda * time), 0)
   row2 = c(0, alphaS * ((1 - exp(-lambda * time))/(lambda * time)), alphaC * 
-             ((1 - exp(-lambda * time))/(lambda * time) - exp(-lambda * time)), 
-           1)
+          ((1 - exp(-lambda * time))/(lambda * time) - exp(-lambda * time)), 1)
   MatrixB = rbind(row1, row2)
   return(MatrixB)
 }
@@ -101,13 +98,13 @@ afnsss = function(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13,
              Meloading_joint(lambda = l1, alphaS = g1, alphaC = g2, time = frmat[2]), 
              Meloading_joint(lambda = l1, alphaS = g1, alphaC = g2, time = frmat[3]))
   ct = matrix(rep(c(yieldadj_joint(sigma11 = h1, sigma22 = h2, sigma33 = h3, 
-                                   sigma44 = h4, lambda = l1, time = frmat[1]), yieldadj_joint(sigma11 = h1, 
-                                                                                               sigma22 = h2, sigma33 = h3, sigma44 = h4, lambda = l1, time = frmat[2]), 
+                                   sigma44 = h4, lambda = l1, time = frmat[1]), 
+                    yieldadj_joint(sigma11 = h1, sigma22 = h2, sigma33 = h3, 
+                                   sigma44 = h4, lambda = l1, time = frmat[2]), 
                     yieldadj_joint(sigma11 = h1, sigma22 = h2, sigma33 = h3, sigma44 = h4, 
                                    lambda = l1, time = frmat[1])), each = 2), nr = 6, nc = 1)
   dt = matrix(c(1 - t1, t2, t3, t4, t5, 1 - t6, t7, t8, t9, t10, 1 - 
-                  t11, t12, t13, t14, t15, 1 - t16), nr = 4) %*% matrix(c(s1, s2, 
-                                                                          s3, s4), nr = 4)
+                  t11, t12, t13, t14, t15, 1 - t16), nr = 4) %*% matrix(c(s1, s2, s3, s4), nr = 4)
   GGt = matrix(0.1 * diag(6), nr = 6, nc = 6)
   H = diag(c(h1^2, h2^2, h3^2, h4^2), nr = 4)
   HHt = Tt %*% H %*% t(Tt)
@@ -129,7 +126,8 @@ objective = function(theta, yt) {
   return(-ans$logLik)
 }
 
-theta <- c(t = c(0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8), s = c(0.2, 0.2, 0.2, 0.2), g = c(0.6, 0.6), l1 = c(0.7), h = c(0.2, 0.2, 0.2, 0.2))
+theta <- c(t = c(0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.8), s = c(0.2, 0.2, 0.2, 0.2), 
+           g = c(0.6, 0.6), l1 = c(0.7), h = c(0.2, 0.2, 0.2, 0.2))
 
 
 fit = optim(theta, objective, yt = y51, hessian = TRUE)
