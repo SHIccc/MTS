@@ -1,3 +1,4 @@
+
 Name of QuantLet : MTS_multi_modelres
 
 Published in : MTS
@@ -18,4 +19,5 @@ Datafile : 'joide0915ans.RData, joifr0915ans.RData, joiit0715ans.RData,
 joisw0714ans.RData, joiuk0915ans.RData'
 
 Example :
-- 'The model residuals for nominal and inflation-linked bonds estimated from multiple yield curve modeling over three different maturities.'
+- 'The model residuals for nominal and inflation-linked bonds estimated from 
+multiple yield curve modeling over three different maturities.'
