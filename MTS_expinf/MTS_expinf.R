@@ -9,7 +9,7 @@
 # Keywords:    bond, plot, estimation, time-series, curve, interest-rate,
 #              graphical representation, visualization
 # ------------------------------------------------------------------------------
-# See also:    MTS_afns_
+# See also:    
 # ------------------------------------------------------------------------------
 # Author:      Shi Chen
 # ------------------------------------------------------------------------------
