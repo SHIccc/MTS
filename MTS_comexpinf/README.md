@@ -5,31 +5,28 @@
 
 
 ```yaml
-Name of QuantLet : MTS_BEIR
+Name of QuantLet : MTS_comexpinf
 
 Published in : MTS
 
-Description : 'Plots the breakeven inflation rate (BEIR)across five 
-different industrialized European countries - U.K., Germany, France, 
-Italy and Sweden.'
+Description : 'Produce the estimation results derived from the 
+joint modeling of IE dynamics. Graphic showing the common inflation 
+factor and the model residuals.'
 
-Keywords : 'bond, graphical representation, plot, time-series, 
-visualization'
+Keywords : 'Kalman filter, MLE, estimation, filter, maximum-likelihood, 
+optimization, similarity'
 
-See also : 'MTS_afns_de, MTS_afns_fr, MTS_afns_uk, MTS_afns_it, 
-MTS_afns_sw'
+See also : 'MTS_afns_de, MTS_afns_fr, MTS_afns_it, MTS_afns_sw, MTS_afns_uk, 
+MTS_comexpinf_cds, MTS_expinf'
 
 Author : Shi Chen
 
 Submitted :
 
-Datafile : 'deinf.csv, denom.csv, fr_inf.csv, fr_nom.csv, italy_inf.csv, 
-italy_nom.csv, sweden_inf.csv, sweden_nom.csv, ukspot_nom.csv, 
-ukspot_real.csv'
+Datafile : 'expinf.RData'
 
 Example :
-- 'BEIR for five industrialized European countries - U.K., Germany, 
-France, Italy and Sweden.'
+- 'Common inflation factor estimated by the joint modeling of IE dynamics.'
 
 ```
 
