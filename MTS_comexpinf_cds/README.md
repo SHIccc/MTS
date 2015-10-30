@@ -27,8 +27,10 @@ Submitted :
 Datafile : expinf.RData, eurocds_33343.csv
 
 Example :
-- 'Common inflation factor estimated by the joint modeling of IE dynamics with macroeconomic factor.'
-- 'Model residuals for modeling of IE dynamics with macroeconomic factor over different countries.'
+- 'Common inflation factor estimated by the joint modeling of IE dynamics with 
+macroeconomic factor.'
+- 'Model residuals for modeling of IE dynamics with macroeconomic factor over 
+different countries.'
 
 ```
 
