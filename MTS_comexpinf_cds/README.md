@@ -36,6 +36,7 @@ Example :
 ![Picture1](MTS_comexpinf_cds2.png)
 
 ```R
+
 ## clear history
 rm(list = ls(all = TRUE))
 graphics.off()
@@ -46,6 +47,15 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
+
+## read CDS data: eucds1 contains CDS across five countries
+eucds = read.csv("eurocds_33343.csv", header = T, sep = ";")
+eucds_date = eucds[, 1]
+st1 = which(eucds_date == "01.11.2009")
+et1 = which(eucds_date == "01.12.2014")
+eucds1 = eucds[(st1:et1), 2:6]
+mcds1 = as.matrix(t(eucds1))
+mcds2 = matrix(rep(mcds1[4, ], 5), nr = 5)
 
 ## load dataset
 load("expinf.RData")
@@ -60,7 +70,7 @@ frts2 = ts(fr.epi, frequency = 12, start = c(2006, 6))
 itts2 = ts(it.epi, frequency = 12, start = c(2007, 6))
 swts2 = ts(sw.epi, frequency = 12, start = c(2007, 4))
 
-## the time period contains all five countries
+## select the time period contains all five countries
 ukepi = uk.epi[39:100]
 frepi = fr.epi[39:100]
 swepi = sw.epi[25:86]
@@ -68,10 +78,11 @@ itepi = it.epi[27:88]
 deepi = de.epi[1:62]
 y51 = matrix(c(ukepi, frepi, itepi, swepi, deepi), nr = 5)
 
+## the model with macroeconomic factor - default proxy
 jointmodel = function(q1, b1, b2, b3, b4, b5, a1, a2, a3, a4, a5, p1) {
   Tt = matrix(c(q1), 1, 1)
   Zt = rbind(b1, b2, b3, b4, b5)
-  ct = rbind(a1, a2, a3, a4, a5)
+  ct = matrix(diag(c(a1, a2, a3, a4, a5)), 5, 5) %*% mcds2
   dt = matrix(c(p1), 1, 1)
   GGt = matrix(0.1 * diag(5), 5, 5)
   HHt = matrix(0.1 * diag(1), 1, 1)
@@ -82,9 +93,9 @@ jointmodel = function(q1, b1, b2, b3, b4, b5, a1, a2, a3, a4, a5, p1) {
 }
 
 objective = function(theta, yt) {
-  sp = jointmodel(theta["q1"], theta["b1"], theta["b2"], theta["b3"], 
-                  theta["b4"], theta["b5"], theta["a1"], theta["a2"], theta["a3"], 
-                  theta["a4"], theta["a5"], theta["p1"])
+  sp = jointmodel(theta["q1"], theta["b1"], theta["b2"], theta["b3"], theta["b4"], 
+                  theta["b5"], theta["a1"], theta["a2"], theta["a3"], theta["a4"], 
+                  theta["a5"], theta["p1"])
   ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, 
             Zt = sp$Zt, HHt = sp$HHt, GGt = sp$GGt, yt = yt)
   return(-ans$logLik)
@@ -95,26 +106,33 @@ theta = c(q1 = c(0.2), b = c(0.5, 0.5, 0.5, 0.5, 0.5),
 
 fit = optim(theta, objective, yt = y51, hessian = TRUE)
 sp = jointmodel(fit$par["q1"], fit$par["b1"], fit$par["b2"], fit$par["b3"], 
-                fit$par["b4"], fit$par["b5"], fit$par["a1"], fit$par["a2"], 
-                fit$par["a3"], fit$par["a4"], fit$par["a5"], fit$par["p1"])
+                fit$par["b4"], fit$par["b5"], fit$par["a1"], fit$par["a2"], fit$par["a3"], 
+                fit$par["a4"], fit$par["a5"], fit$par["p1"])
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
-comexp0914 = c(ans$at[-1])
-comexp0914filter = c(ans$att[-1])
-commonfit0915 = fit
-commonans0915 = ans
+comexp0914mac = c(ans$at[-1])
+comexp0914filtermac = c(ans$att[-1])
+commonans0915mac = ans
 
-## the period contains four countries
-ukepi = uk.epi[15:39]
-frepi = fr.epi[15:39]
-swepi = sw.epi[5:29]
-itepi = it.epi[3:27]
+## select the time period contains four countries
+st1 = which(eucds_date == "01.01.2008")
+et1 = which(eucds_date == "01.10.2009")
+eucds1 = eucds[(st1:et1), 2:6]
+mcds1 = as.matrix(t(eucds1))
+mcds3 = matrix(rep(mcds1[4, ], 4), nr = 4)
+ukepi = uk.epi[18:39]
+frepi = fr.epi[18:39]
+swepi = sw.epi[8:29]
+itepi = it.epi[6:27]
 y51 = matrix(c(ukepi, frepi, itepi, swepi), nr = 4)
+mcds3 = matrix(rep(mcds1[4, ], 4), nr = 4)
+
+## the joint model incorporates the macroeconomic factor
 jointmodel = function(q1, b1, b2, b3, b4, a1, a2, a3, a4, p1) {
   Tt = matrix(c(q1), 1, 1)
   Zt = rbind(b1, b2, b3, b4)
-  ct = rbind(a1, a2, a3, a4)
+  ct = matrix(diag(c(a1, a2, a3, a4)), 4, 4) %*% mcds3
   dt = matrix(c(p1), 1, 1)
   GGt = matrix(0.1 * diag(4), 4, 4)
   HHt = matrix(0.1 * diag(1), 1, 1)
@@ -132,26 +150,27 @@ objective = function(theta, yt) {
   return(-ans$logLik)
 }
 
-theta = c(q1 = c(0.2), b = c(0.2, 0.2, 0.2, 0.2), 
-          a = c(0.3, 0.3, 0.3, 0.3), p1 = c(0.8))
+theta = c(q1 = c(0.8), b = c(0.6, 0.6, 0.6, 0.6), a = c(0.2, 0.2, 0.2, 
+                                                        0.2), p1 = c(0.8))
+
 fit = optim(theta, objective, yt = y51, hessian = TRUE)
-sp = jointmodel(fit$par["q1"], fit$par["b1"], fit$par["b2"], fit$par["b3"], 
-                fit$par["b4"], fit$par["a1"], fit$par["a2"], fit$par["a3"], fit$par["a4"], 
-                fit$par["p1"])
+sp = jointmodel(fit$par["q1"], fit$par["b1"], fit$par["b2"], fit$par["b3"], fit$par["b4"],
+                fit$par["a1"], fit$par["a2"], fit$par["a3"], fit$par["a4"], fit$par["p1"])
 ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
           HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
-commonfit0709 = fit
-commonans0709 = ans
-comexp0709 = c(ans$at[-1])
-comexp0709filter = c(ans$att[-1])
-comexp0714 = c(comexp0709, comexp0914)
-comexpts1 = ts(comexp0714, frequency = 12, start = c(2006, 9))
-comexpinf = c(comexp0709filter, comexp0914filter)
-comexpts2 = ts(comexpinf, frequency = 12, start = c(2006, 9))
+comexp0709mac = c(ans$at[-1])
+comexp0709filtermac = c(ans$att[-1])
+commonans0709mac = ans
+
+comexp0714mac = c(comexp0709mac, comexp0914mac)
+comexpts1 = ts(comexp0714mac, frequency = 12, start = c(2007, 1))
+comexp0714filtermac = c(comexp0709filtermac, comexp0914filtermac)
+comexpts2 = ts(comexp0714filtermac, frequency = 12, start = c(2007, 1))
+
 
 ## Plot 1: common inflation factor
-plot(ukts2, col = "grey", lwd = 2, ylim = c(-1, 4))
+plot(ukts2, col = "grey", lwd = 2, ylim = c(-1, 4), xlab = NA, ylab = NA)
 lines(dets2, col = "grey", lwd = 2)
 lines(frts2, col = "grey", lwd = 2)
 lines(itts2, col = "grey", lwd = 2)
@@ -160,18 +179,18 @@ lines(comexpts1, col = "red", lwd = 2.5)
 lines(comexpts2, col = "blue", lty = 2, lwd = 2.5)
 
 ## Plot 2: model residuals
-res.uk = c(commonans0709$vt[1, -1], commonans0915$vt[1, -1])
-res.fr = c(commonans0709$vt[2, -1], commonans0915$vt[2, -1])
-res.sw = c(commonans0709$vt[3, -1], commonans0915$vt[3, -1])
-res.it = c(commonans0709$vt[4, -1], commonans0915$vt[4, -1])
-res.de = c(commonans0915$vt[5, -1])
+res.uk = c(commonans0709mac$vt[1, -1], commonans0915mac$vt[1, -1])
+res.fr = c(commonans0709mac$vt[2, -1], commonans0915mac$vt[2, -1])
+res.sw = c(commonans0709mac$vt[3, -1], commonans0915mac$vt[3, -1])
+res.it = c(commonans0709mac$vt[4, -1], commonans0915mac$vt[4, -1])
+res.de = c(commonans0915mac$vt[5, -1])
 res1 = ts(res.uk, frequency = 12, start = c(2007, 9))
 res2 = ts(res.fr, frequency = 12, start = c(2007, 9))
 res3 = ts(res.sw, frequency = 12, start = c(2007, 9))
 res4 = ts(res.it, frequency = 12, start = c(2007, 9))
 res5 = ts(res.de, frequency = 12, start = c(2009, 9))
 
-plot(res1, lwd = 2, ylim = c(-3, 3), col = "red", type = "l")
+plot(res1, lwd = 2, ylim = c(-3, 3), col = "red", type = "l", xlab = NA, ylab = NA)
 lines(res5, lwd = 2, col = "gray")
 lines(res2, lwd = 2, col = "blue", lty = 2)
 lines(res3, lwd = 3, col = "green3", lty = 4)
