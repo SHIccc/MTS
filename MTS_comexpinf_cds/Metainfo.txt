@@ -17,7 +17,7 @@ Author : Shi Chen
 
 Submitted :
 
-Datafile : 'expinf.RData'
+Datafile : expinf.RData, eurocds_33343.csv
 
 Example :
 - 'Common inflation factor estimated by the joint modeling of IE dynamics with macroeconomic factor.'
