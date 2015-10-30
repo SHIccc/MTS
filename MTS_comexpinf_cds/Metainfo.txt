@@ -1,16 +1,17 @@
-Name of QuantLet : MTS_comexpinf
+
+Name of QuantLet : MTS_comexpinf_cds
 
 Published in : MTS
 
-Description : 'Produce the estimation results derived from the 
-joint modeling of IE dynamics. Graphic showing the common inflation 
-factor and the model residuals.'
+Description : 'Produces the estimation results derived from the joint 
+modeling of IE dynamics with macroeconomic factor. Graphic showing the 
+common inflation factor and the model residuals.'
 
-Keywords : 'Kalman filter, MLE, estimation, filter, maximum-likelihood, 
-optimization, similarity'
+Keywords : 'Credit Risk, Kalman filter, estimation, filter, 
+maximum-likelihood, optimization, risk measure, similarity'
 
 See also : 'MTS_afns_de, MTS_afns_fr, MTS_afns_it, MTS_afns_sw, MTS_afns_uk, 
-MTS_comexpinf_cds, MTS_expinf'
+MTS_comexpinf, MTS_expinf'
 
 Author : Shi Chen
 
@@ -19,4 +20,5 @@ Submitted :
 Datafile : 'expinf.RData'
 
 Example :
-- 'Common inflation factor estimated by the joint modeling of IE dynamics.'
+- 'Common inflation factor estimated by the joint modeling of IE dynamics with macroeconomic factor.'
+- 'Model residuals for modeling of IE dynamics with macroeconomic factor over different countries.'
