@@ -5,27 +5,29 @@
 
 
 ```yaml
-Name of QuantLet : Modeling of Term Structure for Inflation Estimation
+Name of QuantLet : MTS_afns_de
 
-Published in : 'Unpublished; AFNS model implemented to estimate the 
-model-implied BEIR rates of Germany in: Shi Chen - 
-Inflation Co-movement across Countries in a Multi-maturity
-Term Structure: An Arbitrage-Free Approach'
+Published in : MTS
 
-Description : 'Plots the breakeven inflation rate (BEIR) 
-across five different industrialized European countries 
-- U.K., Germany, France, Italy and Sweden.'
+Description : ?Shows the estimation results derived from the AFNS model 
+in a multi-maturity term structure for Germany. Graphic showing the 
+filtered and predicted state variables.'
 
 Keywords : 'bond, graphical representation, plot, time-series, 
 visualization'
 
-See also : 
+See also : MTS_afns_fr, MTS_afns_uk, MTS_afns_it, MTS_afns_sw
 
 Author : Shi Chen
 
-Submitted : 
+Submitted :
+
+Datafile : deinf.csv, denom.csv
 
 Example :
+- 'The estimated four latent factors of state variable for Germany. The 
+predicted are presented as line type and the filtered are dashed.'
+
 ```
 
 ![Picture1](MTS_afns_de.png)
