@@ -162,9 +162,9 @@ lines(ts.itbeipre, lty = 4, col = "orange2", lwd = 3)
 lines(ts.swbeipre, lty = 1, col = "grey", lwd = 3)
 abline(h = 0, lty = "dotted", col = "gray3")
 abline(v = time(ts.ukbeipre)[28], lty = "dotted", col = "gray3")
-text(time(ts.ukbeipre)[33], -1.5, "Lehman Brothers", col = "gray3", adj = c(0, 
-                                                                            -0.1), cex = 0.8)
-text(time(ts.ukbeipre)[33], -2, "Bankruptcy", col = "gray3", adj = c(0, 
-                                                                     -0.1), cex = 0.8)
-text(time(ts.ukbeipre)[33], -2.5, "Sept 15, 2008", col = "gray3", adj = c(0, 
-                                                                          -0.1), cex = 0.8)
+text(time(ts.ukbeipre)[33], -1.5, "Lehman Brothers", col = "gray3", 
+     adj = c(0, -0.1), cex = 0.8)
+text(time(ts.ukbeipre)[33], -2, "Bankruptcy", col = "gray3", 
+     adj = c(0, -0.1), cex = 0.8)
+text(time(ts.ukbeipre)[33], -2.5, "Sept 15, 2008", col = "gray3", 
+     adj = c(0, -0.1), cex = 0.8)
