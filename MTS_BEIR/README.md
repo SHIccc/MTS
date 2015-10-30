@@ -12,9 +12,9 @@ U.K., Germany, France, Italy and Sweden: Shi Chen - Inflation
 Co-movement across Countries in a Multi-maturity Term Structure: 
 An Arbitrage-Free Approach'
 
-Description : 'Plots the breakeven inflation rate (BEIR) 
-across five different industrialized European countries 
-- U.K., Germany, France, Italy and Sweden.'
+Description : 'Plots the breakeven inflation rate (BEIR)across five 
+different industrialized European countries - U.K., Germany, France, 
+Italy and Sweden.'
 
 Keywords : 'bond, graphical representation, plot, time-series, 
 visualization'
