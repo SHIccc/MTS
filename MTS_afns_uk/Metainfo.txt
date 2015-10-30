@@ -1,22 +1,23 @@
 
-Name of QuantLet : Modeling of Term Structure for Inflation Estimation
+Name of QuantLet : MTS_afns_uk
 
-Published in : 'Unpublished; Theoretical description 
-of tree and random forest model in: Shi Chen - 
-Inflation Co-movement across Countries in a Multi-maturity
-Term Structure: An Arbitrage-Free Approach'
+Published in : MTS
 
-Description : 'Plots the breakeven inflation rate (BEIR) 
-across five different industrialized European countries 
-- U.K., Germany, France, Italy and Sweden.'
+Description : 'Shows the estimation results derived from the AFNS model 
+in a multi-maturity term structure for U.K.. Graphic showing the 
+filtered and predicted state variables.'
 
 Keywords : 'bond, graphical representation, plot, time-series, 
 visualization'
 
-See also : 
+See also : MTS_afns_de, MTS_afns_sw, MTS_afns_fr, MTS_afns_it
 
 Author : Shi Chen
 
-Submitted : 
+Submitted :
+
+Datafile : sweden_inf.csv, sweden_nom.csv
 
 Example :
+- 'The estimated four latent factors of state variable for U.K.. The 
+predicted are presented as line type and the filtered are dashed.'
