@@ -1,23 +1,24 @@
 
 ![http://quantnet.wiwi.hu-berlin.de/style/banner.png](http://quantnet.wiwi.hu-berlin.de/style/banner.png)
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **MTS_BEIR**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **MTS_comexpinf_cds**
 
 
 ```yaml
-Name of QuantLet : MTS_comexpinf
+
+Name of QuantLet : MTS_comexpinf_cds
 
 Published in : MTS
 
-Description : 'Produce the estimation results derived from the 
-joint modeling of IE dynamics. Graphic showing the common inflation 
-factor and the model residuals.'
+Description : 'Produces the estimation results derived from the joint 
+modeling of IE dynamics with macroeconomic factor. Graphic showing the 
+common inflation factor and the model residuals.'
 
-Keywords : 'Kalman filter, MLE, estimation, filter, maximum-likelihood, 
-optimization, similarity'
+Keywords : 'Credit Risk, Kalman filter, estimation, filter, 
+maximum-likelihood, optimization, risk measure, similarity'
 
 See also : 'MTS_afns_de, MTS_afns_fr, MTS_afns_it, MTS_afns_sw, MTS_afns_uk, 
-MTS_comexpinf_cds, MTS_expinf'
+MTS_comexpinf, MTS_expinf'
 
 Author : Shi Chen
 
@@ -26,11 +27,13 @@ Submitted :
 Datafile : 'expinf.RData'
 
 Example :
-- 'Common inflation factor estimated by the joint modeling of IE dynamics.'
+- 'Common inflation factor estimated by the joint modeling of IE dynamics with macroeconomic factor.'
+- 'Model residuals for modeling of IE dynamics with macroeconomic factor over different countries.'
 
 ```
 
-![Picture1](MTS_BEIR.png)
+![Picture1](MTS_comexpinf_cds1.png)
+![Picture1](MTS_comexpinf_cds2.png)
 
 ```R
 ## clear history
@@ -38,152 +41,139 @@ rm(list = ls(all = TRUE))
 graphics.off()
 
 ## install and load packages
-libraries = c("zoo")
+libraries = c("zoo", "FKF", "expm", "Matrix", "formatR")
 lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 
-setwd("")
+## load dataset
+load("expinf.RData")
+uk.epi = expinf[, 1]
+fr.epi = expinf[, 2]
+sw.epi = expinf[, 3]
+it.epi = expinf[, 4]
+de.epi = expinf[, 5]
+ukts2 = ts(uk.epi, frequency = 12, start = c(2006, 6))
+dets2 = ts(de.epi, frequency = 12, start = c(2009, 6))
+frts2 = ts(fr.epi, frequency = 12, start = c(2006, 6))
+itts2 = ts(it.epi, frequency = 12, start = c(2007, 6))
+swts2 = ts(sw.epi, frequency = 12, start = c(2007, 4))
 
-## read data of U.K.
-ukdata1 = read.csv("ukspot_nom.csv", header = F, sep = ";")  #U.K. nominal bonds
-ukdate = as.character(ukdata1[, 1])
-st = which(ukdate == "30 Jun 06")
-et = which(ukdate == "31 Dez 14")
-ukdata11 = ukdata1[(st:et), 3:51]
+## the time period contains all five countries
+ukepi = uk.epi[39:100]
+frepi = fr.epi[39:100]
+swepi = sw.epi[25:86]
+itepi = it.epi[27:88]
+deepi = de.epi[1:62]
+y51 = matrix(c(ukepi, frepi, itepi, swepi, deepi), nr = 5)
 
-ukdata2 = read.csv("ukspot_real.csv", header = F, sep = ";")  #U.K. inflation-indexed bonds
-ukdate = as.character(ukdata2[, 1])
-st = which(ukdate == "30 Jun 06")
-et = which(ukdate == "31 Dez 14")
-ukdata22 = ukdata2[(st:et), 2:47]
-uknom = cbind(ukdata11[, 5], ukdata11[, 7], ukdata11[, 9])
-ukinf = cbind(ukdata22[, 2], ukdata22[, 4], ukdata22[, 6])
-ukmat = c(3, 4, 5)
-
-ukjoi = cbind(uknom[, 1], ukinf[, 1])
-for (i in 2:length(ukmat)) {
-  ukjoi = cbind(ukjoi, uknom[, i], ukinf[, i])
+jointmodel = function(q1, b1, b2, b3, b4, b5, a1, a2, a3, a4, a5, p1) {
+  Tt = matrix(c(q1), 1, 1)
+  Zt = rbind(b1, b2, b3, b4, b5)
+  ct = rbind(a1, a2, a3, a4, a5)
+  dt = matrix(c(p1), 1, 1)
+  GGt = matrix(0.1 * diag(5), 5, 5)
+  HHt = matrix(0.1 * diag(1), 1, 1)
+  a0 = mean(y51[, 1])
+  P0 = HHt * 10
+  return(list(a0 = a0, P0 = P0, ct = ct, dt = dt, Zt = Zt, Tt = Tt, GGt = GGt, 
+              HHt = HHt))
 }
 
-
-ukbei = uknom - ukinf  #mat: 3,4,5
-ts.ukbeipre = ts(ukbei[, 1], frequency = 12, start = c(2006, 6))
-
-## read data of Germany
-dedata1 = read.csv("denom.csv", header = F, sep = ";")
-dedate = as.character(dedata1[, 1])
-st = which(dedate == "30.06.2009")
-et = which(dedate == "31.12.2014")
-dedata11 = dedata1[(st:et), 2:14]
-
-dedata2 = read.csv("deinf.csv", header = F, sep = ";")
-dedate = as.character(dedata2[, 2])
-st = which(dedate == "30.06.2009")
-et = which(dedate == "31.12.2014")
-dedata22 = dedata2[(st:et), 3:5]
-
-denom = cbind(dedata11[, 4], dedata11[, 6], dedata11[, 9])
-deinf = cbind(dedata22[, 1], dedata22[, 2], dedata22[, 3])
-demat = c(5, 7, 10)
-
-dejoi = cbind(denom[, 1], deinf[, 1])
-for (i in 2:length(demat)) {
-  dejoi = cbind(dejoi, denom[, i], deinf[, i])
+objective = function(theta, yt) {
+  sp = jointmodel(theta["q1"], theta["b1"], theta["b2"], theta["b3"], 
+                  theta["b4"], theta["b5"], theta["a1"], theta["a2"], theta["a3"], 
+                  theta["a4"], theta["a5"], theta["p1"])
+  ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, 
+            Zt = sp$Zt, HHt = sp$HHt, GGt = sp$GGt, yt = yt)
+  return(-ans$logLik)
 }
 
-debei = denom - deinf
-ts.debeipre = ts(debei[, 1], frequency = 12, start = c(2009, 6))
+theta = c(q1 = c(0.2), b = c(0.5, 0.5, 0.5, 0.5, 0.5), 
+          a = c(0.3, 0.3, 0.3, 0.3, 0.3), p1 = c(0.8))
 
-## read data of France
-frdata1 = read.csv("frnom2.csv", header = F, sep = ";")
-frdate = as.character(frdata1[, 2])
-st = which(frdate == "30.06.2006")
-et = which(frdate == "31.12.2014")
-frdata11 = frdata1[(st:et), 3:14]
+fit = optim(theta, objective, yt = y51, hessian = TRUE)
+sp = jointmodel(fit$par["q1"], fit$par["b1"], fit$par["b2"], fit$par["b3"], 
+                fit$par["b4"], fit$par["b5"], fit$par["a1"], fit$par["a2"], 
+                fit$par["a3"], fit$par["a4"], fit$par["a5"], fit$par["p1"])
+ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
+          HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
-frdata2 = read.csv("frinf_bloom.csv", header = F, sep = ";")
-frdate = as.character(frdata2[, 1])
-st = which(frdate == "30.06.2006")
-et = which(frdate == "31.12.2014")
-frdata22 = frdata2[(st:et), 2:9]
+comexp0914 = c(ans$at[-1])
+comexp0914filter = c(ans$att[-1])
+commonfit0915 = fit
+commonans0915 = ans
 
-frnom = cbind(frdata11[, 2], frdata11[, 4], frdata11[, 9])
-frinf = cbind(frdata22[, 2], frdata22[, 4], frdata22[, 5])
-frmat = c(3, 5, 10)
-
-frjoi = cbind(frnom[, 1], frinf[, 1])
-for (i in 2:length(frmat)) {
-  frjoi = cbind(frjoi, frnom[, i], frinf[, i])
+## the period contains four countries
+ukepi = uk.epi[15:39]
+frepi = fr.epi[15:39]
+swepi = sw.epi[5:29]
+itepi = it.epi[3:27]
+y51 = matrix(c(ukepi, frepi, itepi, swepi), nr = 4)
+jointmodel = function(q1, b1, b2, b3, b4, a1, a2, a3, a4, p1) {
+  Tt = matrix(c(q1), 1, 1)
+  Zt = rbind(b1, b2, b3, b4)
+  ct = rbind(a1, a2, a3, a4)
+  dt = matrix(c(p1), 1, 1)
+  GGt = matrix(0.1 * diag(4), 4, 4)
+  HHt = matrix(0.1 * diag(1), 1, 1)
+  a0 = mean(y51[, 1])
+  P0 = HHt * 10
+  return(list(a0 = a0, P0 = P0, ct = ct, dt = dt, Zt = Zt, Tt = Tt, GGt = GGt, 
+              HHt = HHt))
 }
 
-frbei = frnom - frinf
-ts.frbeipre = ts(frbei[, 1], frequency = 12, start = c(2006, 6))
-
-## read data of Italy
-itdata1 = read.csv("itnom.csv", header = F, sep = ";")
-itdate = as.character(itdata1[, 1])
-st = which(itdate == "30.06.2006")
-st = which(itdate == "29.06.2007")
-et = which(itdate == "31.12.2014")
-itdata11 = itdata1[(st:et), 2:12]
-
-itdata2 = read.csv("itinf2.csv", header = F, sep = ";")
-itdate = as.character(itdata2[, 1])
-st = which(itdate == "29.06.2007")
-et = which(itdate == "31.12.2014")
-itdata22 = itdata2[(st:et), 2:8]
-
-itnom = cbind(itdata11[, 2], itdata11[, 4], itdata11[, 9])
-itinf = cbind(itdata22[, 3], itdata22[, 4], itdata22[, 6])
-itmat = c(3, 5, 10)
-
-itjoi = cbind(itnom[, 1], itinf[, 1])
-for (i in 2:length(itmat)) {
-  itjoi = cbind(itjoi, itnom[, i], itinf[, i])
+objective = function(theta, yt) {
+  sp = jointmodel(theta["q1"], theta["b1"], theta["b2"], theta["b3"], theta["b4"], 
+                  theta["a1"], theta["a2"], theta["a3"], theta["a4"], theta["p1"])
+  ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, 
+            Zt = sp$Zt, HHt = sp$HHt, GGt = sp$GGt, yt = yt)
+  return(-ans$logLik)
 }
 
-itbei = itnom - itinf
-ts.itbeipre = ts(itbei[, 1], frequency = 12, start = c(2007, 6))
+theta = c(q1 = c(0.2), b = c(0.2, 0.2, 0.2, 0.2), 
+          a = c(0.3, 0.3, 0.3, 0.3), p1 = c(0.8))
+fit = optim(theta, objective, yt = y51, hessian = TRUE)
+sp = jointmodel(fit$par["q1"], fit$par["b1"], fit$par["b2"], fit$par["b3"], 
+                fit$par["b4"], fit$par["a1"], fit$par["a2"], fit$par["a3"], fit$par["a4"], 
+                fit$par["p1"])
+ans = fkf(a0 = sp$a0, P0 = sp$P0, dt = sp$dt, ct = sp$ct, Tt = sp$Tt, Zt = sp$Zt, 
+          HHt = sp$HHt, GGt = sp$GGt, yt = y51)
 
-## read data of Sweden
-swdata1 = read.csv("swnom.csv", header = F, sep = ";")
-swdate = as.character(swdata1[, 1])
-st = which(swdate == "30.04.2007")
-et = which(swdate == "29.08.2014")
-swdata11 = swdata1[(st:et), 2:8]
+commonfit0709 = fit
+commonans0709 = ans
+comexp0709 = c(ans$at[-1])
+comexp0709filter = c(ans$att[-1])
+comexp0714 = c(comexp0709, comexp0914)
+comexpts1 = ts(comexp0714, frequency = 12, start = c(2006, 9))
+comexpinf = c(comexp0709filter, comexp0914filter)
+comexpts2 = ts(comexpinf, frequency = 12, start = c(2006, 9))
 
-swdata2 = read.csv("swinf3.csv", header = F, sep = ";")
-swdate = as.character(swdata2[, 1])
-st = which(swdate == "30.04.2007")
-et = which(swdate == "29.08.2014")
-swdata22 = swdata2[(st:et), 2:6]
+## Plot 1: common inflation factor
+plot(ukts2, col = "grey", lwd = 2, ylim = c(-1, 4))
+lines(dets2, col = "grey", lwd = 2)
+lines(frts2, col = "grey", lwd = 2)
+lines(itts2, col = "grey", lwd = 2)
+lines(swts2, col = "grey", lwd = 2)
+lines(comexpts1, col = "red", lwd = 2.5)
+lines(comexpts2, col = "blue", lty = 2, lwd = 2.5)
 
-swnom = cbind(swdata11[, 1], swdata11[, 4], swdata11[, 5])
-swinf = cbind(swdata22[, 1], swdata22[, 2], swdata22[, 3])
-swmat = c(2, 5, 7)
+## Plot 2: model residuals
+res.uk = c(commonans0709$vt[1, -1], commonans0915$vt[1, -1])
+res.fr = c(commonans0709$vt[2, -1], commonans0915$vt[2, -1])
+res.sw = c(commonans0709$vt[3, -1], commonans0915$vt[3, -1])
+res.it = c(commonans0709$vt[4, -1], commonans0915$vt[4, -1])
+res.de = c(commonans0915$vt[5, -1])
+res1 = ts(res.uk, frequency = 12, start = c(2007, 9))
+res2 = ts(res.fr, frequency = 12, start = c(2007, 9))
+res3 = ts(res.sw, frequency = 12, start = c(2007, 9))
+res4 = ts(res.it, frequency = 12, start = c(2007, 9))
+res5 = ts(res.de, frequency = 12, start = c(2009, 9))
 
-swjoi = cbind(swnom[, 1], swinf[, 1])
-for (i in 2:length(swmat)) {
-  swjoi = cbind(swjoi, swnom[, i], swinf[, i])
-}
-swbei = swnom - swinf
-ts.swbeipre = ts(swbei[, 1], frequency = 12, start = c(2007, 4))
-
-## BEIR plot
-par(mfrow = c(1, 1), pty = "m")
-plot(ts.ukbeipre, lty = 3, lwd = 3, col = "red", ylim = c(-3, 4), ylab = "BEIR")
-lines(ts.debeipre, lty = 2, col = "blue", lwd = 3)
-lines(ts.frbeipre, lty = 1, col = "black", lwd = 3)
-lines(ts.itbeipre, lty = 4, col = "orange2", lwd = 3)
-lines(ts.swbeipre, lty = 1, col = "grey", lwd = 3)
-abline(h = 0, lty = "dotted", col = "gray3")
-abline(v = time(ts.ukbeipre)[28], lty = "dotted", col = "gray3")
-text(time(ts.ukbeipre)[33], -1.5, "Lehman Brothers", col = "gray3", 
-     adj = c(0, -0.1), cex = 0.8)
-text(time(ts.ukbeipre)[33], -2, "Bankruptcy", col = "gray3", 
-     adj = c(0, -0.1), cex = 0.8)
-text(time(ts.ukbeipre)[33], -2.5, "Sept 15, 2008", col = "gray3", 
-     adj = c(0, -0.1), cex = 0.8)
+plot(res1, lwd = 2, ylim = c(-3, 3), col = "red", type = "l")
+lines(res5, lwd = 2, col = "gray")
+lines(res2, lwd = 2, col = "blue", lty = 2)
+lines(res3, lwd = 3, col = "green3", lty = 4)
+lines(res4, lwd = 2, col = "black", lty = 3)
 ```
