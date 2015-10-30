@@ -1,25 +1,25 @@
 
 ![http://quantnet.wiwi.hu-berlin.de/style/banner.png](http://quantnet.wiwi.hu-berlin.de/style/banner.png)
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_BEIR)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_BEIR](https://github.com/QuantLet/MTS/tree/master/MTS_BEIR)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_afns_uk)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_afns_uk](https://github.com/QuantLet/MTS/tree/master/MTS_afns_uk)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_afns_fr)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_afns_fr](https://github.com/QuantLet/MTS/tree/master/MTS_afns_fr)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_afns_de)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_afns_de](https://github.com/QuantLet/MTS/tree/master/MTS_afns_de)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_afns_it)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_afns_it](https://github.com/QuantLet/MTS/tree/master/MTS_afns_it)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_afns_sw)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_afns_sw](https://github.com/QuantLet/MTS/tree/master/MTS_afns_sw)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_expinf)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_expinf](https://github.com/QuantLet/MTS/tree/master/MTS_expinf)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_comexpinf)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_comexpinf](https://github.com/QuantLet/MTS/tree/master/MTS_comexpinf)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_comexpinf_cds)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_comexpinf_cds](https://github.com/QuantLet/MTS/tree/master/MTS_comexpinf_cds)**
 
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[bestglm_lambda_down](https://github.com/QuantLet/MTS/tree/master/MTS_multi_modelres)**
+## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **[MTS_multi_modelres](https://github.com/QuantLet/MTS/tree/master/MTS_multi_modelres)**
 
 ### Abstract of the work:
 Inflation expectation is acknowledged to be an important indicator for policy makers and financial investors. To capture a more accurate 
