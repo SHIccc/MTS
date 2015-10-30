@@ -1,22 +1,22 @@
-Name of QuantLet : MTS_comexpinf
+Name of QuantLet : MTS_expinf
 
 Published in : MTS
 
-Description : 'Produce the estimation results derived from the 
-joint modeling of IE dynamics. Graphic showing the common inflation 
-factor and the model residuals.'
+Description : 'Compares the estimated three-year and five-year forecast 
+of IE for each European country. The inflation expectation (IE) is 
+estimated by model-implied BEIR and plotted in gray.'
 
-Keywords : 'Kalman filter, MLE, estimation, filter, maximum-likelihood, 
-optimization, similarity'
+Keywords : 'bond, curve, estimation, graphical representation, plot, term structure, 
+visualization'
 
 See also : 'MTS_afns_de, MTS_afns_fr, MTS_afns_it, MTS_afns_sw, MTS_afns_uk, 
-MTS_comexpinf_cds, MTS_expinf'
+MTS_comexpinf_cds, MTS_comexpinf'
 
 Author : Shi Chen
 
 Submitted :
 
-Datafile : 'expinf.RData'
+Datafile : 'IEdata.RData'
 
 Example :
-- 'Common inflation factor estimated by the joint modeling of IE dynamics.'
+- 'The model-implied IE for each European country.'
