@@ -10,7 +10,7 @@ Name of QuantLet : MTS_afns_fr
 
 Published in : MTS
 
-Description : ‘Shows the estimation results derived from the AFNS model 
+Description : 'Shows the estimation results derived from the AFNS model 
 in a multi-maturity term structure for France. Graphic showing the 
 filtered and predicted state variables.'
 
