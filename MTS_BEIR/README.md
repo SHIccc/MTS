@@ -23,12 +23,11 @@ See also : 'MTS_afns_de, MTS_afns_fr, MTS_afns_uk, MTS_afns_it, MTS_afns_sw'
 
 Author : Shi Chen
 
-Submitted : 
-
 Datafile : 'deinf.csv, denom.csv, fr_inf.csv, fr_nom.csv, italy_inf.csv, 
 italy_nom.csv, sweden_inf.csv, sweden_nom.csv, ukspot_nom.csv, ukspot_real.csv'
 
-Example :
+submitted :
+
 ```
 
 ![Picture1](MTS_BEIR.png)
