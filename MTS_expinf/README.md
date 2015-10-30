@@ -30,7 +30,8 @@ Example :
 
 ```
 
-![Picture1](MTS_expinf.png)
+![Picture1](MTS_expinf1.png)
+![Picture1](MTS_expinf2.png)
 
 ```R
 ## clear history
