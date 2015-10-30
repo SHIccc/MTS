@@ -9,7 +9,7 @@ Name of QuantLet : MTS_comexpinf
 
 Published in : MTS
 
-Description : 'Produce the estimation results derived from the 
+Description : 'Produces the estimation results derived from the 
 joint modeling of IE dynamics. Graphic showing the common inflation 
 factor and the model residuals.'
 
