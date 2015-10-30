@@ -16,7 +16,7 @@ Author : Shi Chen
 
 Submitted :
 
-Datafile : sweden_inf.csv, sweden_nom.csv
+Datafile : ukspot_nom.csv, ukspot_real.csv
 
 Example :
 - 'The estimated four latent factors of state variable for U.K.. The 
