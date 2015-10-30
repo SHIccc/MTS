@@ -48,13 +48,13 @@ lapply(libraries, library, quietly = TRUE, character.only = TRUE)
 setwd("")
 
 ## read data of France
-frdata1 = read.csv("frnom2.csv", header = F, sep = ";")
+frdata1 = read.csv("fr_nom.csv", header = F, sep = ";")
 frdate = as.character(frdata1[, 2])
 st = which(frdate == "30.06.2006")
 et = which(frdate == "31.12.2014")
 frdata11 = frdata1[(st:et), 3:14]
 
-frdata2 = read.csv("frinf_bloom.csv", header = F, sep = ";")
+frdata2 = read.csv("fr_inf.csv", header = F, sep = ";")
 frdate = as.character(frdata2[, 1])
 st = which(frdate == "30.06.2006")
 et = which(frdate == "31.12.2014")
