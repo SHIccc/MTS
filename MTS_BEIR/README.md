@@ -19,11 +19,14 @@ across five different industrialized European countries
 Keywords : 'bond, graphical representation, plot, time-series, 
 visualization'
 
-See also : 
+See also : 'deinf.csv, denom.csv, fr_inf.csv, fr_nom.csv, italy_inf.csv, 
+italy_nom.csv, sweden_inf.csv, sweden_nom.csv, ukspot_nom.csv, ukspot_real.csv'
 
 Author : Shi Chen
 
 Submitted : 
+
+Datafile : 
 
 Example :
 ```
