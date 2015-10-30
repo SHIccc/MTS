@@ -36,6 +36,7 @@ over different countries.'
 ![Picture1](MTS_comexpinf2.png)
 
 ```R
+## clear history
 rm(list = ls(all = TRUE))
 graphics.off()
 
