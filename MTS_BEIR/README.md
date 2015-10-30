@@ -23,7 +23,9 @@ Author : Shi Chen
 
 Submitted :
 
-Datafile : deinf.csv, denom.csv
+Datafile : 'deinf.csv, denom.csv, fr_inf.csv, fr_nom.csv, italy_inf.csv, 
+italy_nom.csv, sweden_inf.csv, sweden_nom.csv, ukspot_nom.csv, 
+ukspot_real.csv'
 
 Example :
 - 'BEIR for five industrialized European countries - U.K., Germany, 
