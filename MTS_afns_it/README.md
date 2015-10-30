@@ -32,7 +32,7 @@ predicted are presented as line type and the filtered are dashed.'
 
 ```
 
-![Picture1](MTS_BEIR.png)
+![Picture1](MTS_afns_it.png)
 
 ```R
 
