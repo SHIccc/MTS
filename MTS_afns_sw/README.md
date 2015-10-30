@@ -5,27 +5,30 @@
 
 
 ```yaml
-Name of QuantLet : Modeling of Term Structure for Inflation Estimation
 
-Published in : 'Unpublished; Theoretical description 
-of tree and random forest model in: Shi Chen - 
-Inflation Co-movement across Countries in a Multi-maturity
-Term Structure: An Arbitrage-Free Approach'
+Name of QuantLet : MTS_afns_sw
 
-Description : 'The estimation results for Sweden derived from the 
-AFNS model in multi-maturity term structure. Graphic showing the filtered 
-and predicted state variables.'
+Published in : MTS
 
-Keywords : 'Kalman filter, MLE, bond, estimation, filter, 
-interest-rate, maximum-likelihood, optimization, plot, term structure'
+Description : 'Shows the estimation results derived from the AFNS model 
+in a multi-maturity term structure for Sweden. Graphic showing the 
+filtered and predicted state variables.'
 
-See also : 
+Keywords : 'bond, graphical representation, plot, time-series, 
+visualization'
+
+See also : MTS_afns_de, MTS_afns_uk, MTS_afns_fr, MTS_afns_it
 
 Author : Shi Chen
 
-Submitted : 
+Submitted :
+
+Datafile : sweden_inf.csv, sweden_nom.csv
 
 Example :
+- 'The estimated four latent factors of state variable for Sweden. The 
+predicted are presented as line type and the filtered are dashed.'
+
 ```
 
 ![Picture1](MTS_afns_sw.png)
