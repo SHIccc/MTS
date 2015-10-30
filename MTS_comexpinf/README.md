@@ -45,7 +45,6 @@ lapply(libraries, function(x) if (!(x %in% installed.packages())) {
   install.packages(x)
 })
 lapply(libraries, library, quietly = TRUE, character.only = TRUE)
-setwd("C:/Users/chenshic.hub/Dropbox/Panel_NS_AF/Code/MTS_Qcodes/")
 
 ## load dataset
 load("expinf.RData")
