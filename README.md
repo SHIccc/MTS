@@ -34,5 +34,5 @@ improved forecast in a benchmark level of inflation and will provide good implic
 ### Here you see some plots from this repository:
 
 ![Picture1](https://github.com/QuantLet/MTS/blob/master/MTS_BEIR/MTS_BEIR.png)
-![Picture2](https://github.com/QuantLet/MTS/blob/master/MTS_multi_modleres/MTS_multi_modelres.png)
+![Picture2](https://github.com/QuantLet/MTS/blob/master/MTS_multi_modelres/MTS_multi_modelres.png)
 ![Picture3](https://github.com/QuantLet/MTS/blob/master/MTS_afns_de/MTS_afns_de.png)
